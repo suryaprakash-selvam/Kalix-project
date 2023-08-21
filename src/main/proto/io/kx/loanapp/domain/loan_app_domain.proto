@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestap.proto";
+import "kalix/annotations.proto";
+
+package io.kx.loanapp.domain;
+
+option java_outer_classname= "LoanAppApi";
+
+enum LoanAppDomainState {
+ STATUS_UNKNOWN = 0;
+ STATUS_IN_REVIEW = 1;
+ STATUS_APPROVED = 2;
+ STATUS_DECLINE = 3;
+}
+
+message LoanAppDomainState{
+    string client_id = 1;
+    int64 client_monthly_income_cents = 2;
+    int64 loan_amount_cents = 3;
+    int32 loan_duration_months = 4;
+    LoanAppStatus Status = 5;
+    string decline_reason = 6;
+    google.protobuf.Timestam last_update_timestamp = 7;
+}
+
+message Submitted{
+        string loan_app_id = 1;
+    string client_id = 2;
+    int64 client_monthly_income_cents = 3;
+    int64 loan_amount_cents = 4;
+    int32 loan_duration_months = 5;
+        google.protobuf.Timestamp last_update_timestamp = 6;
+}
+
+message Approved {
+        google.protobuf.Timestamp last_update_timestamp = 1;
+        string loan_app_id =2;
+
+}
+
+message DeclineCommand {
+        google.protobuf.Timestamp last_update_timestamp = 1;
+        string loan_app_id =2;
+        string reason=3;
+
+}
